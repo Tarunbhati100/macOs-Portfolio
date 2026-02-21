@@ -59,8 +59,8 @@ const Welcome = () => {
     const subtitleRef = useRef(null);
 
     useGSAP(()=>{
-        const titleCleanup = setupTextHover(titleRef.current, "title")
-        const subtitleCleanup = setupTextHover(subtitleRef.current, "subtitle")
+        const titleCleanup = setupTextHover(titleRef.current, "title") ?? (() => {})
+        const subtitleCleanup = setupTextHover(subtitleRef.current, "subtitle") ?? (() => {})
         
         return () =>{
             subtitleCleanup();
@@ -84,7 +84,7 @@ const Welcome = () => {
             }
         </h1>
         <div className="small-screen">
-            <p>his Portfolio is designed for desktop/tablet screens only.</p>
+            <p>This Portfolio is designed for desktop/tablet screens only.</p>
         </div>
     </section>
   )
