@@ -1,15 +1,18 @@
-import { WindowControls } from '#components'
+import { WindowControls, WindowHeader } from '#components'
 import { locations } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
 import useLocationStore from '#store/location'
 import useWindowStore from '#store/window'
+import { useGSAP } from '@gsap/react'
 import clsx from 'clsx'
+import { Draggable } from 'gsap/Draggable'
 import { Search } from 'lucide-react'
 import React from 'react'
 
 const Finder = () => {
     const { openWindow } = useWindowStore();
     const {activeLocation, setActiveLocation} = useLocationStore();
+    const contentRef = React.useRef(null);
 
     const openItem = (item)=>{
         if(item.fileType ==='pdf') return openWindow("resume");
@@ -36,11 +39,35 @@ const Finder = () => {
         </div>
     )
 
+    useGSAP(() => {
+        if (!contentRef.current) return;
+      
+        const folders = contentRef.current.querySelectorAll(".finder-folder");
+      
+        const instances = [];
+      
+        folders.forEach((folder) => {
+          const draggable = Draggable.create(folder, {
+            type: "x,y",
+            bounds: contentRef.current,
+            edgeResistance: 0.9,
+          })[0];
+      
+          instances.push(draggable);
+        });
+      
+        return () => {
+          instances.forEach((d) => d.kill());
+        };
+      
+      }, { scope: contentRef, dependencies: [activeLocation] }); 
+
   return <>
-    <div id='window-header'>
-        <WindowControls target="finder"/>
-        <Search className='icon'/>
-    </div>
+
+    <WindowHeader id="finder">
+        <Search className='icon' />
+    </WindowHeader>
+
 
     <div className='bg-white flex h-full'>
 
@@ -49,9 +76,9 @@ const Finder = () => {
             {renderList("Work",locations.work.children)}
         </div>
 
-        <ul className='content'>
+        <ul ref={contentRef} className='content'>
             {activeLocation?.children.map((item)=>(
-                <li key={item.id} className={item.position} onClick={()=>openItem(item)}>
+                <li key={item.id} className={clsx("group finder-folder",item.position)} onClick={()=>openItem(item)}>
                     <img src={item.icon} alt={item.name}/>
                     <p>{item.name}</p>
                 </li>

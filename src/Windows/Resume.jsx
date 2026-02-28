@@ -1,4 +1,4 @@
-import { WindowControls } from '#components';
+import { WindowControls, WindowHeader } from '#components';
 import WindowWrapper from '#hoc/WindowWrapper'
 import { Download } from 'lucide-react';
 import React from 'react'
@@ -14,13 +14,15 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 const Resume = () => {
   return <>
-  <div id="window-header">
-    <WindowControls target="resume"/>
-    <h2>Resume.pdf</h2>
-    <a href="files/resume.pdf" download className="cursor-pointer" title="Resume.pdf"/>
 
-    <Download className='icon'/>
-  </div>
+  <WindowHeader id="resume">
+    <h2>Resume.pdf</h2>
+    <a href="files/resume.pdf" download className="cursor-pointer p-1 rounded hover:bg-gray-200 transition" title="Resume.pdf">
+        <Download className='w-4 h-4' color='blue'/>
+    </a>
+  </WindowHeader>
+
+
   <Document file="files/resume.pdf">
     <Page pageNumber={1} renderTextLayer renderAnnotationLayer />
    </Document>

@@ -1,4 +1,4 @@
-import { WindowControls } from '#components'
+import { WindowControls, WindowHeader } from '#components'
 import WindowWrapper from '#hoc/WindowWrapper'
 import useWindowStore from '#store/window'
 import React from 'react'
@@ -7,16 +7,14 @@ const Image = () => {
     const { windows } = useWindowStore()
     const data = windows.imgfile?.data
 
-    if(!data) return null;
-
-    const { name, imageUrl } = data;
+    const name = data?.name ?? "Image Preview";
+    const imageUrl = data?.imageUrl;
     
     return (
         <>
-            <div id="window-header">
-                <WindowControls target="imgfile"/>
+            <WindowHeader id="imgfile">
                 <h2>{name}</h2>
-            </div>
+            </WindowHeader>
 
             <div className='p-5 bg-white'>
                 {imageUrl ? (
@@ -27,7 +25,9 @@ const Image = () => {
                             className='w-full h-auto max-h-[70vh] object-contain rounded'
                         />
                     </div>
-                ):null}
+                ):(
+                    <p className="text-sm text-gray-400">No image...</p>
+                  )}
             </div>
         </>
     )
