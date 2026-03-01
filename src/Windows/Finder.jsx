@@ -60,6 +60,7 @@ const Finder = () => {
             type: "x,y",
             bounds: contentRef.current,
             edgeResistance: 0.9,
+            minimumMovement: 5,
           })[0];
       
           instances.push(draggable);

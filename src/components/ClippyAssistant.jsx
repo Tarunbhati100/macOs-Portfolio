@@ -58,6 +58,8 @@ const ClippyAssistant = () => {
     
     agentRef.current = agent
 
+    agent.moveTo(window.innerWidth - 300, window.innerHeight - 180, 0)
+
     if (isVisible){
       agent.show()
       agent.speak(`Hi! I'm ${agentName}!`)

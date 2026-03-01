@@ -35,6 +35,7 @@ const WindowWrapper = (Component, windowKey) => {
         trigger: header,
         edgeResistance:0.8,
         bounds: document.body,
+        minimumMovement: 5,
         onPress: () => {
           focusWindow(windowKey)
         }

@@ -2,6 +2,11 @@
 
 @import "tailwindcss";
 
+
+* {
+  touch-action: manipulation;
+}
+
 html,
 body { 
   width: 100dvw;
