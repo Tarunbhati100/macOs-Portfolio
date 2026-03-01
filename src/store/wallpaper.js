@@ -35,6 +35,6 @@ const useWallpaperStore = create((set) => ({
   WALLPAPERS,
 }))
 
-useWallpaperStore.getState().setWallpaper(WALLPAPERS.static[0])
+useWallpaperStore.getState().setWallpaper(WALLPAPERS.static[2])
 
 export default useWallpaperStore

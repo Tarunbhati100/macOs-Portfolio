@@ -50,7 +50,6 @@ const Finder = () => {
 
     useGSAP(() => {
         if (!contentRef.current) return;
-      
         const folders = contentRef.current.querySelectorAll(".finder-folder");
       
         const instances = [];
@@ -61,6 +60,7 @@ const Finder = () => {
             bounds: contentRef.current,
             edgeResistance: 0.9,
             minimumMovement: 5,
+            allowEventDefault: true,
           })[0];
       
           instances.push(draggable);

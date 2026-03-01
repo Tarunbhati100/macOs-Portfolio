@@ -20,7 +20,14 @@ const Home = () => {
   }
 
   useGSAP(()=>{
-    const [instance] = Draggable.create(".folder")
+
+    const [instance] = Draggable.create(".folder", {
+      type: "x,y",
+      bounds: window,
+      edgeResistance: 0.9,
+      minimumMovement: 5,
+      allowEventDefault: true,
+    })
 
     return () => instance.kill();
   },[])
